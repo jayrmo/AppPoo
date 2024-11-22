@@ -4,10 +4,21 @@ import java.util.List;
 
 public interface OperacoesCRUD<Tipo, ID> {
 
-    void salvar(Tipo entidade);
+    Tipo salvar(Tipo entidade);
+
     Tipo buscarPorId(ID id);
+
+    Tipo buscarPorCampo(String nomeCampo, Tipo tipoEntidade);
+
     List<Tipo> buscarTodos();
-    void deletar(Tipo entidade);
-    void deletarPorId(ID id);
+
     void atualizar(Tipo entidade);
+
+    void deletarPorId(ID id);
+
+    void deletar(Tipo entidade);
+
+
+    void fecharConexao();
+
 }

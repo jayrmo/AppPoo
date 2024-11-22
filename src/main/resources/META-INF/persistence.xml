@@ -4,8 +4,8 @@
                                  https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd"
              version="3.0">
     <persistence-unit name="dbJardim" transaction-type="RESOURCE_LOCAL">
-<!--        <class>Produto</class> &lt;!&ndash; Liste suas entidades aqui &ndash;&gt;-->
-
+        <!--        <class>Produto</class> &lt;!&ndash; Liste suas entidades aqui &ndash;&gt;-->
+        <class>com.dev.poo.Entities.Usuario</class>
         <properties>
             <!-- Configuração do Banco de Dados -->
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
@@ -14,7 +14,7 @@
             <property name="jakarta.persistence.jdbc.password" value="db123456"/>
 
             <!-- Configuração do Hibernate -->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
