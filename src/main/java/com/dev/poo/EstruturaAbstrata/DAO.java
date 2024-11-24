@@ -51,7 +51,20 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
     }
 
     @Override
-    public Tipo buscarPorCampo(String nomeCampo, Object valorCampo) {
+    public List<Tipo> buscarPorCampo(String nomeCampo, Object valorCampo) {
+        try {
+            String jpql = "SELECT e FROM " + this.tipoEntidade.getSimpleName() + " e WHERE e." + nomeCampo + " = :valor";
+            List<Tipo> entidadesEncontradas = gerenciaEntidade.createQuery(jpql, this.tipoEntidade).setParameter("valor", valorCampo).getResultList();
+            return entidadesEncontradas;
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            System.err.println("Dados não encontrados no DB!");
+            return null;
+        }
+    }
+
+    @Override
+    public Tipo buscarUnicaPorCampo(String nomeCampo, Object valorCampo) {
         try {
             String jpql = "SELECT e FROM " + this.tipoEntidade.getSimpleName() + " e WHERE e." + nomeCampo + " = :valor";
             Tipo entidadeEncontrada = gerenciaEntidade.createQuery(jpql, this.tipoEntidade).setParameter("valor", valorCampo).getSingleResult();
@@ -61,8 +74,8 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
             System.err.println("Dados não encontrados no DB!");
             return null;
         }
-
     }
+
 
     @Override
     public List<Tipo> buscarTodos() {
@@ -76,61 +89,65 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
         try {
             transacao.begin();
             gerenciaEntidade.merge(entidade);
+            System.out.println(entidade);
             transacao.commit();
-            System.out.println("Atualizado");
-        } catch (RuntimeException e) {
-            if (transacao.isActive()) {
-                transacao.rollback();
-            }
-            throw e;
+    } catch(
+    RuntimeException e)
+
+    {
+        if (transacao.isActive()) {
+            transacao.rollback();
         }
+        throw e;
     }
 
-    @Override
-    public void deletarPorId(ID id) {
-        EntityTransaction transacao = gerenciaEntidade.getTransaction();
-        try {
-            transacao.begin();
-            Tipo entidade = buscarPorId(id);
-            if (entidade != null) {
-                gerenciaEntidade.remove(entidade);
-            }
-            transacao.commit();
-        } catch (RuntimeException e) {
-            if (transacao.isActive()) {
-                transacao.rollback();
-            }
-            System.err.println("Id não encontrado para deletar!");
-            throw e;
-        }
+}
 
+@Override
+public void deletarPorId(ID id) {
+    EntityTransaction transacao = gerenciaEntidade.getTransaction();
+    try {
+        transacao.begin();
+        Tipo entidade = buscarPorId(id);
+        if (entidade != null) {
+            gerenciaEntidade.remove(entidade);
+        }
+        transacao.commit();
+    } catch (RuntimeException e) {
+        if (transacao.isActive()) {
+            transacao.rollback();
+        }
+        System.err.println("Id não encontrado para deletar!");
+        throw e;
     }
 
-    @Override
-    public void deletar(Tipo entidade) {
-        EntityTransaction transacao = gerenciaEntidade.getTransaction();
-        try {
-            transacao.begin();
-            if (gerenciaEntidade.contains(entidade)) {
-                gerenciaEntidade.remove(entidade);
-            } else {
-                gerenciaEntidade.remove(gerenciaEntidade.merge(entidade));
-            }
-            transacao.commit();
-        } catch (RuntimeException e) {
-            if (transacao.isActive()) {
-                transacao.rollback();
-            }
-            throw e;
+}
+
+@Override
+public void deletar(Tipo entidade) {
+    EntityTransaction transacao = gerenciaEntidade.getTransaction();
+    try {
+        transacao.begin();
+        if (gerenciaEntidade.contains(entidade)) {
+            gerenciaEntidade.remove(entidade);
+        } else {
+            gerenciaEntidade.remove(gerenciaEntidade.merge(entidade));
         }
+        transacao.commit();
+    } catch (RuntimeException e) {
+        if (transacao.isActive()) {
+            transacao.rollback();
+        }
+        throw e;
     }
+}
 
 
-    @Override
-    public void fecharConexao() {
-        if (gerenciaEntidade.isOpen()) {
-            gerenciaEntidade.close();
-            System.out.println("Conexão Finalizada!");
-        }
+@Override
+public void fecharConexao() {
+    if (gerenciaEntidade.isOpen()) {
+        gerenciaEntidade.close();
+        System.out.println("Conexão Finalizada!");
     }
+}
 }

@@ -8,7 +8,8 @@ public interface OperacoesCRUD<Tipo, ID> {
 
     Tipo buscarPorId(ID id);
 
-    Tipo buscarPorCampo(String nomeCampo, Tipo tipoEntidade);
+    List<Tipo> buscarPorCampo(String nomeCampo, Tipo tipoEntidade);
+    Tipo buscarUnicaPorCampo(String nomeCampo, Tipo tipoEntidade);
 
     List<Tipo> buscarTodos();
 
