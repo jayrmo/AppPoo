@@ -9,24 +9,24 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
 
 
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("dbJardim");
-    //    protected EntityManager gerenciaEntidade;
+    protected EntityManager em;
     private Class<Tipo> tipoEntidade;
 
 
     public DAO(Class<Tipo> tipoEntidade) {
         this.tipoEntidade = tipoEntidade;
-//        this.gerenciaEntidade = emf.createEntityManager();
+        this.em = emf.createEntityManager();
     }
 
     @Override
     public Tipo salvar(Tipo entidade) {
-        System.out.println(entidade);
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction transacao = em.getTransaction();
+//        System.out.println(entidade);
+//        EntityManager em = emf.createEntityManager();
+        EntityTransaction transacao = this.em.getTransaction();
 //        EntityTransaction transacao = gerenciaEntidade.getTransaction();
         try {
             transacao.begin();
-            em.persist(entidade);
+            this.em.persist(entidade);
             transacao.commit();
             System.out.println("Salvo com sucesso!");
             return entidade;
@@ -44,8 +44,6 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
                 transacao.rollback();
             }
             return null;
-        } finally {
-            em.close();
         }
 
     }
@@ -53,16 +51,16 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
 
     @Override
     public Tipo buscarPorId(ID id) {
-        EntityManager em = emf.createEntityManager();
-        return em.find(tipoEntidade, id);
+//        EntityManager em = emf.createEntityManager();
+        return this.em.find(tipoEntidade, id);
     }
 
     @Override
     public List<Tipo> buscarPorCampo(String nomeCampo, Object valorCampo) {
-        EntityManager em = emf.createEntityManager();
+//        EntityManager em = emf.createEntityManager();
         try {
             String jpql = "SELECT e FROM " + this.tipoEntidade.getSimpleName() + " e WHERE e." + nomeCampo + " = :valor";
-            List<Tipo> entidadesEncontradas = em.createQuery(jpql, this.tipoEntidade).setParameter("valor", valorCampo).getResultList();
+            List<Tipo> entidadesEncontradas = this.em.createQuery(jpql, this.tipoEntidade).setParameter("valor", valorCampo).getResultList();
             return entidadesEncontradas;
         } catch (NoResultException e) {
             e.printStackTrace();
@@ -73,10 +71,10 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
 
     @Override
     public Tipo buscaUnicaPorCampo(String nomeCampo, Object valorCampo) {
-        EntityManager em = emf.createEntityManager();
+//        EntityManager em = emf.createEntityManager();
         try {
             String jpql = "SELECT e FROM " + this.tipoEntidade.getSimpleName() + " e WHERE e." + nomeCampo + " = :valor";
-            Tipo entidadeEncontrada = em.createQuery(jpql, this.tipoEntidade).setParameter("valor", valorCampo).getSingleResult();
+            Tipo entidadeEncontrada = this.em.createQuery(jpql, this.tipoEntidade).setParameter("valor", valorCampo).getSingleResult();
             return entidadeEncontrada;
         } catch (NoResultException e) {
             e.printStackTrace();
@@ -88,18 +86,18 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
 
     @Override
     public List<Tipo> buscarTodos() {
-        EntityManager em = emf.createEntityManager();
+//        EntityManager em = emf.createEntityManager();
         String jpql = "SELECT e FROM " + tipoEntidade.getSimpleName() + " e";
-        return em.createQuery(jpql, tipoEntidade).getResultList();
+        return this.em.createQuery(jpql, tipoEntidade).getResultList();
     }
 
     @Override
     public void atualizar(Tipo entidade) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction transacao = em.getTransaction();
+//        EntityManager em = emf.createEntityManager();
+        EntityTransaction transacao = this.em.getTransaction();
         try {
             transacao.begin();
-            em.merge(entidade);
+            this.em.merge(entidade);
             System.out.println(entidade);
             transacao.commit();
         } catch (
@@ -114,13 +112,13 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
 
     @Override
     public void deletarPorId(ID id) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction transacao = em.getTransaction();
+//        EntityManager em = emf.createEntityManager();
+        EntityTransaction transacao = this.em.getTransaction();
         try {
             transacao.begin();
             Tipo entidade = buscarPorId(id);
             if (entidade != null) {
-                em.remove(entidade);
+                this.em.remove(entidade);
             }
             transacao.commit();
         } catch (RuntimeException e) {
@@ -129,22 +127,19 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
             }
             System.err.println("Id não encontrado para deletar!");
             throw e;
-        }finally {
-            em.close();
         }
-
     }
 
     @Override
     public void deletar(Tipo entidade) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction transacao = em.getTransaction();
+//        EntityManager em = emf.createEntityManager();
+        EntityTransaction transacao = this.em.getTransaction();
         try {
             transacao.begin();
-            if (em.contains(entidade)) {
-                em.remove(entidade);
+            if (this.em.contains(entidade)) {
+                this.em.remove(entidade);
             } else {
-                em.remove(em.merge(entidade));
+                this.em.remove(this.em.merge(entidade));
             }
             transacao.commit();
         } catch (RuntimeException e) {
@@ -152,17 +147,15 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
                 transacao.rollback();
             }
             throw e;
-        }finally {
-            em.close();
         }
     }
 
 
     @Override
     public void fecharConexao() {
-        EntityManager em = emf.createEntityManager();
-        if (em.isOpen()) {
-            em.close();
+//        EntityManager em = emf.createEntityManager();
+        if (this.em.isOpen()) {
+            this.em.close();
             System.out.println("Conexão Finalizada!");
         }
     }

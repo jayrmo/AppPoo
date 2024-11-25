@@ -4,7 +4,8 @@ package com.dev.poo.Entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "respostas")
+@Table(name = "respostas", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"aluno_id", "desafio_id"})})
 public class Respostas {
 
 
@@ -16,7 +17,7 @@ public class Respostas {
     private String resposta;
 
     @ManyToOne
-    @JoinColumn(name = "desafio_id", unique = true)
+    @JoinColumn(name = "desafio_id")
     private Desafio desafio;
 
     private Integer avaliacao;

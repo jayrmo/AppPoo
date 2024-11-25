@@ -27,12 +27,9 @@ public class Desafio {
     @Column(name = "`nivel`")
     private Nivel nivel;
 
-//    @ManyToOne
-//    @JoinColumn(name = "professor_id", nullable = false)
-//    private Usuario professor;
-//
-//    @ManyToMany(mappedBy = "desafios")
-//    private List<Aluno> alunos;
+    @ManyToOne
+    @JoinColumn(name = "professor_id", nullable = false)
+    private Professor professor;
 
 
     public Desafio(String titulo, String descricao, Categoria categoria, Integer pontuacao, Nivel nivel) {
@@ -46,23 +43,14 @@ public class Desafio {
     public Desafio() {
 
     }
-//
-//    public List<Aluno> getAlunos() {
-//        return alunos;
-//    }
-//
-//    public void setAlunos(List<Aluno> alunos) {
-//        this.alunos = alunos;
-//    }
-//
-//    public Usuario getProfessor() {
-//        return professor;
-//    }
-//
-//    public void setProfessor(Usuario professor) {
-//        this.professor = professor;
-//    }
 
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
 
     public Long getId() {
         return id;

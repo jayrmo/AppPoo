@@ -1,13 +1,12 @@
 package com.dev.poo.Service;
 
 import com.dev.poo.Aux.TipoUsuario;
-import com.dev.poo.Entities.Aluno;
-import com.dev.poo.Entities.Desafio;
-import com.dev.poo.Entities.Respostas;
-import com.dev.poo.Entities.Usuario;
+import com.dev.poo.Entities.*;
 import com.dev.poo.Repository.RepositoryDesafio;
 import com.dev.poo.Repository.RepositoryResposta;
 import com.dev.poo.Repository.RepositoryUsuario;
+
+import java.util.List;
 
 public class ServiceResposta {
     RepositoryResposta repositoryResposta = new RepositoryResposta(Respostas.class);
@@ -21,6 +20,11 @@ public class ServiceResposta {
         resposta.setDesafio(desafioDB);
         resposta.setAluno(userDB);
         repositoryResposta.salvar(resposta);
+    }
+
+    public List<Respostas> buscarTodasRespostas(Professor usuarioLogado){
+        autenticar.autenticar(usuarioLogado);
+        return repositoryResposta.buscarTodos();
     }
 
 //    public void avaliarResposta(Integer nota, Respostas resposta, Usuario usuarioLogado) {
@@ -46,9 +50,10 @@ public class ServiceResposta {
 //    }
 
 
-    public void deletarResposta(Long id, Usuario usuarioLogado){
+    public Professor deletarResposta(Long id, Professor usuarioLogado){
             autenticar.autenticar(usuarioLogado);
             repositoryResposta.deletarPorId(id);
+            return usuarioLogado;
     }
 
 
