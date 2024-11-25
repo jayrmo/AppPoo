@@ -22,9 +22,42 @@ public class ServiceResposta {
         repositoryResposta.salvar(resposta);
     }
 
-    public List<Respostas> buscarTodasRespostas(Professor usuarioLogado){
+    public List<Respostas> buscarTodasRespostas(Professor usuarioLogado) {
         autenticar.autenticar(usuarioLogado);
         return repositoryResposta.buscarTodos();
+    }
+
+    public List<Respostas> buscarPorDesafio(Desafio desafio) {
+        Desafio desafioDB = repositoryDesafio.buscaUnicaPorCampo("titulo", desafio.getTitulo());
+        List<Respostas> respostas = repositoryResposta.buscarPorCampo("desafio", desafioDB);
+        return respostas;
+    }
+
+    public List<Respostas> buscarPorAluno(Usuario aluno) {
+        Usuario alunoDB = repositoryUsuario.buscaUnicaPorCampo("email", aluno.getEmail());
+        List<Respostas> respostas = repositoryResposta.buscarPorCampo("aluno", alunoDB);
+        return respostas;
+    }
+
+    public Respostas buscarPorAlunoDesafio(Aluno aluno, Desafio desafio) {
+        Desafio desafioDB = repositoryDesafio.buscaUnicaPorCampo("titulo", desafio.getTitulo());
+        System.out.println(desafioDB.getId());
+        Usuario alunoDB = repositoryUsuario.buscaUnicaPorCampo("email", aluno.getEmail());
+        System.out.println(alunoDB.getNome());
+        for (Respostas d : buscarPorDesafio(desafioDB)) {
+            if (d.getAluno().equals(alunoDB)) {
+                return d;
+            }
+        }
+
+        return null;
+    }
+
+
+    public Professor deletarResposta(Long id, Professor usuarioLogado) {
+        autenticar.autenticar(usuarioLogado);
+        repositoryResposta.deletarPorId(id);
+        return usuarioLogado;
     }
 
 //    public void avaliarResposta(Integer nota, Respostas resposta, Usuario usuarioLogado) {
@@ -48,13 +81,6 @@ public class ServiceResposta {
 //
 //
 //    }
-
-
-    public Professor deletarResposta(Long id, Professor usuarioLogado){
-            autenticar.autenticar(usuarioLogado);
-            repositoryResposta.deletarPorId(id);
-            return usuarioLogado;
-    }
 
 
 }

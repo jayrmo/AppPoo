@@ -19,7 +19,8 @@ public class Main {
         RepositoryAluno ra = new RepositoryAluno(Aluno.class);
         RepositoryProfessor rp = new RepositoryProfessor(Professor.class);
         RepositoryDesafio rd = new RepositoryDesafio(Desafio.class);
-        Usuario u1 = new Aluno();
+        RepositoryResposta rr = new RepositoryResposta(Respostas.class);
+        Aluno u1 = new Aluno();
         Usuario u2 = new Aluno();
         Usuario u3 = new Professor();
         Usuario u4 = new Aluno();
@@ -104,6 +105,7 @@ public class Main {
             System.out.println("Lista todos: " + d.getId() + " = " + d.getTitulo() + " : " + d.getCategoria());
         }
 
+
         System.out.println("Por ID 3: " + rd.buscarPorId(2L).getTitulo() + " : " + rd.buscarPorId(3L).getProfessor().getNome());
 
 
@@ -141,7 +143,18 @@ public class Main {
             System.out.println("Aluno: " + r.getAluno().getNome());
         }
 
+        for (Respostas r : sr.buscarPorAluno(u1)){
+            System.out.println(r.getResposta());
+            System.out.println(r.getDesafio().getTitulo());
+            System.out.println(r.getAluno().getNome());
+        }
 
+
+        System.out.println("Aluno-Desafio" + sr.buscarPorAlunoDesafio(u1, d1).getResposta());
+        System.out.println("Aluno-Desafio" + sr.buscarPorAlunoDesafio(u1, d2).getAluno().getNome());
+//        for (Respostas r : rr.buscarPorCampo("desafio", r1.getDesafio())){
+//            System.out.println(r.getResposta());
+//        }
 //        r1.setId(6L);
 ////        sr.atualizarResposta(r1, u3);
 ////        sr.salvarResposta(r1);
