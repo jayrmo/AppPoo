@@ -64,7 +64,7 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
     }
 
     @Override
-    public Tipo buscarUnicaPorCampo(String nomeCampo, Object valorCampo) {
+    public Tipo buscaUnicaPorCampo(String nomeCampo, Object valorCampo) {
         try {
             String jpql = "SELECT e FROM " + this.tipoEntidade.getSimpleName() + " e WHERE e." + nomeCampo + " = :valor";
             Tipo entidadeEncontrada = gerenciaEntidade.createQuery(jpql, this.tipoEntidade).setParameter("valor", valorCampo).getSingleResult();

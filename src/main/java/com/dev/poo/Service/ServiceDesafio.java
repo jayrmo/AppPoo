@@ -12,12 +12,11 @@ import java.util.List;
 public class ServiceDesafio {
     RepositoryUsuario repositoryUsuario = new RepositoryUsuario(Usuario.class);
     RepositoryDesafio repositoryDesafio = new RepositoryDesafio(Desafio.class);
+    ControleDeAcesso autenticar = new ControleDeAcesso();
 
     public void cadastrarDesafio(Desafio desafio, Usuario usuarioLogado) {
-        Usuario userDB = repositoryUsuario.buscarUnicaPorCampo("email", usuarioLogado.getEmail());
-        if (!userDB.getTipo().equals(TipoUsuario.PROFESSOR)) {
-            throw new RuntimeException("Apenas Professores podem Cadastrar Desafios");
-        }
+        Usuario userDB = repositoryUsuario.buscaUnicaPorCampo("email", usuarioLogado.getEmail());
+        autenticar.autenticar(usuarioLogado);
         desafio.setProfessor(userDB);
         repositoryDesafio.salvar(desafio);
     }
@@ -31,10 +30,7 @@ public class ServiceDesafio {
     }
 
     public void deletarDesafio(Long id, Usuario usuarioLogado) {
-
-        if (!usuarioLogado.getTipo().equals(TipoUsuario.PROFESSOR)) {
-            throw new RuntimeException("Apenas Professores podem Deletar Desafios");
-        }
+        autenticar.autenticar(usuarioLogado);
         repositoryDesafio.deletarPorId(id);
     }
 

@@ -29,9 +29,6 @@ public class Desafio {
     @JoinColumn(name = "professor_id", nullable = false)
     private Usuario professor;
 
-    @ManyToOne
-    @JoinColumn(name = "respostas_id")
-    private Respostas respostas;
 
 
     public Desafio(String titulo, String descricao, Categoria categoria, Integer pontuacao, Nivel nivel) {
@@ -46,13 +43,6 @@ public class Desafio {
 
     }
 
-    public Respostas getRespostas() {
-        return respostas;
-    }
-
-    public void setRespostas(Respostas respostas) {
-        this.respostas = respostas;
-    }
     public Usuario getProfessor() {
         return professor;
     }

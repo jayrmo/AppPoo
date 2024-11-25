@@ -7,6 +7,8 @@ import com.dev.poo.Aux.TipoUsuario;
 import com.dev.poo.Entities.Desafio;
 import com.dev.poo.Entities.Respostas;
 import com.dev.poo.Entities.Usuario;
+import com.dev.poo.Repository.RepositoryDesafio;
+import com.dev.poo.Repository.RepositoryResposta;
 import com.dev.poo.Repository.RepositoryUsuario;
 import com.dev.poo.Service.ServiceDesafio;
 import com.dev.poo.Service.ServiceResposta;
@@ -76,11 +78,15 @@ public class Main {
         }
 ////        sv.deletarDesafio(10L, u3);
 //////        sv.listarDesafios();
-
         ServiceResposta sr = new ServiceResposta();
-        Respostas r1 = new Respostas("10", d1, u1);
+        Respostas r1 = new Respostas("A resposta para a soma é 55", d1, u2);
+        r1.setId(6L);
+//        sr.atualizarResposta(r1, u3);
 //        sr.salvarResposta(r1);
-        sr.avaliarResposta(r1, 10, u3);
+
+
+        sr.avaliarResposta(8, r1,u3);
+//        sr.deletarResposta(5L, u3);
         ru.fecharConexao();//
     }
 }

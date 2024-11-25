@@ -12,10 +12,11 @@ public class Respostas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     private String resposta;
 
     @ManyToOne
-    @JoinColumn(name = "desafio_id")
+    @JoinColumn(name = "desafio_id", unique = true)
     private Desafio desafio;
 
     private Integer avaliacao;
@@ -34,6 +35,13 @@ public class Respostas {
 
     }
 
+    public String getResposta() {
+        return resposta;
+    }
+
+    public void setResposta(String resposta) {
+        this.resposta = resposta;
+    }
 
     public Integer getAvaliacao() {
         return avaliacao;
