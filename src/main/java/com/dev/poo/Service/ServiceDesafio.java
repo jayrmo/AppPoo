@@ -14,12 +14,12 @@ public class ServiceDesafio {
     RepositoryDesafio repositoryDesafio = new RepositoryDesafio(Desafio.class);
     ControleDeAcesso autenticar = new ControleDeAcesso();
 
-    public void cadastrarDesafio(Desafio desafio, Usuario usuarioLogado) {
-        Usuario userDB = repositoryUsuario.buscaUnicaPorCampo("email", usuarioLogado.getEmail());
-        autenticar.autenticar(usuarioLogado);
-        desafio.setProfessor(userDB);
-        repositoryDesafio.salvar(desafio);
-    }
+//    public void cadastrarDesafio(Desafio desafio, Usuario usuarioLogado) {
+//        Usuario userDB = repositoryUsuario.buscaUnicaPorCampo("email", usuarioLogado.getEmail());
+//        autenticar.autenticar(usuarioLogado);
+////        desafio.setProfessor(userDB);
+//        repositoryDesafio.salvar(desafio);
+//    }
 
     public List<Desafio> buscarTodos() {
         return repositoryDesafio.buscarTodos();

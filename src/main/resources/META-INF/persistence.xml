@@ -5,7 +5,13 @@
              version="3.0">
     <persistence-unit name="dbJardim" transaction-type="RESOURCE_LOCAL">
         <!--        <class>Produto</class> &lt;!&ndash; Liste suas entidades aqui &ndash;&gt;-->
-        <class>com.dev.poo.Entities.Usuario</class>
+<!--        <class>com.dev.poo.Entities.Usuario</class>-->
+<!--        <class>com.dev.poo.Entities.Aluno</class>-->
+<!--        <class>com.dev.poo.Entities.Professor</class>-->
+<!--        <class>com.dev.poo.Entities.Desafio</class>-->
+<!--        <class>com.dev.poo.Entities.Respostas</class>-->
+<!--        <class>com.dev.poo.Entities.Respostas</class>-->
+<!--        <class>com.dev.poo.Entities.Respostas</class>-->
         <properties>
             <!-- Configuração do Banco de Dados -->
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
@@ -21,3 +27,5 @@
         </properties>
     </persistence-unit>
 </persistence>
+
+

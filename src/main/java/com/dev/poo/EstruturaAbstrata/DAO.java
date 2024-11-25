@@ -9,22 +9,26 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
 
 
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("dbJardim");
-    protected EntityManager gerenciaEntidade;
+    //    protected EntityManager gerenciaEntidade;
     private Class<Tipo> tipoEntidade;
 
 
     public DAO(Class<Tipo> tipoEntidade) {
         this.tipoEntidade = tipoEntidade;
-        this.gerenciaEntidade = emf.createEntityManager();
+//        this.gerenciaEntidade = emf.createEntityManager();
     }
 
     @Override
     public Tipo salvar(Tipo entidade) {
-        EntityTransaction transacao = gerenciaEntidade.getTransaction();
+        System.out.println(entidade);
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transacao = em.getTransaction();
+//        EntityTransaction transacao = gerenciaEntidade.getTransaction();
         try {
             transacao.begin();
-            gerenciaEntidade.persist(entidade);
+            em.persist(entidade);
             transacao.commit();
+            System.out.println("Salvo com sucesso!");
             return entidade;
         } catch (PersistenceException erro) {
             if (erro.getCause() instanceof ConstraintViolationException) {
@@ -40,6 +44,8 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
                 transacao.rollback();
             }
             return null;
+        } finally {
+            em.close();
         }
 
     }
@@ -47,14 +53,16 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
 
     @Override
     public Tipo buscarPorId(ID id) {
-        return gerenciaEntidade.find(tipoEntidade, id);
+        EntityManager em = emf.createEntityManager();
+        return em.find(tipoEntidade, id);
     }
 
     @Override
     public List<Tipo> buscarPorCampo(String nomeCampo, Object valorCampo) {
+        EntityManager em = emf.createEntityManager();
         try {
             String jpql = "SELECT e FROM " + this.tipoEntidade.getSimpleName() + " e WHERE e." + nomeCampo + " = :valor";
-            List<Tipo> entidadesEncontradas = gerenciaEntidade.createQuery(jpql, this.tipoEntidade).setParameter("valor", valorCampo).getResultList();
+            List<Tipo> entidadesEncontradas = em.createQuery(jpql, this.tipoEntidade).setParameter("valor", valorCampo).getResultList();
             return entidadesEncontradas;
         } catch (NoResultException e) {
             e.printStackTrace();
@@ -65,9 +73,10 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
 
     @Override
     public Tipo buscaUnicaPorCampo(String nomeCampo, Object valorCampo) {
+        EntityManager em = emf.createEntityManager();
         try {
             String jpql = "SELECT e FROM " + this.tipoEntidade.getSimpleName() + " e WHERE e." + nomeCampo + " = :valor";
-            Tipo entidadeEncontrada = gerenciaEntidade.createQuery(jpql, this.tipoEntidade).setParameter("valor", valorCampo).getSingleResult();
+            Tipo entidadeEncontrada = em.createQuery(jpql, this.tipoEntidade).setParameter("valor", valorCampo).getSingleResult();
             return entidadeEncontrada;
         } catch (NoResultException e) {
             e.printStackTrace();
@@ -79,75 +88,82 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
 
     @Override
     public List<Tipo> buscarTodos() {
+        EntityManager em = emf.createEntityManager();
         String jpql = "SELECT e FROM " + tipoEntidade.getSimpleName() + " e";
-        return gerenciaEntidade.createQuery(jpql, tipoEntidade).getResultList();
+        return em.createQuery(jpql, tipoEntidade).getResultList();
     }
 
     @Override
     public void atualizar(Tipo entidade) {
-        EntityTransaction transacao = gerenciaEntidade.getTransaction();
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transacao = em.getTransaction();
         try {
             transacao.begin();
-            gerenciaEntidade.merge(entidade);
+            em.merge(entidade);
             System.out.println(entidade);
             transacao.commit();
-    } catch(
-    RuntimeException e)
-
-    {
-        if (transacao.isActive()) {
-            transacao.rollback();
+        } catch (
+                RuntimeException e) {
+            if (transacao.isActive()) {
+                transacao.rollback();
+            }
+            throw e;
         }
-        throw e;
+
     }
 
-}
+    @Override
+    public void deletarPorId(ID id) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transacao = em.getTransaction();
+        try {
+            transacao.begin();
+            Tipo entidade = buscarPorId(id);
+            if (entidade != null) {
+                em.remove(entidade);
+            }
+            transacao.commit();
+        } catch (RuntimeException e) {
+            if (transacao.isActive()) {
+                transacao.rollback();
+            }
+            System.err.println("Id não encontrado para deletar!");
+            throw e;
+        }finally {
+            em.close();
+        }
 
-@Override
-public void deletarPorId(ID id) {
-    EntityTransaction transacao = gerenciaEntidade.getTransaction();
-    try {
-        transacao.begin();
-        Tipo entidade = buscarPorId(id);
-        if (entidade != null) {
-            gerenciaEntidade.remove(entidade);
-        }
-        transacao.commit();
-    } catch (RuntimeException e) {
-        if (transacao.isActive()) {
-            transacao.rollback();
-        }
-        System.err.println("Id não encontrado para deletar!");
-        throw e;
     }
 
-}
-
-@Override
-public void deletar(Tipo entidade) {
-    EntityTransaction transacao = gerenciaEntidade.getTransaction();
-    try {
-        transacao.begin();
-        if (gerenciaEntidade.contains(entidade)) {
-            gerenciaEntidade.remove(entidade);
-        } else {
-            gerenciaEntidade.remove(gerenciaEntidade.merge(entidade));
+    @Override
+    public void deletar(Tipo entidade) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transacao = em.getTransaction();
+        try {
+            transacao.begin();
+            if (em.contains(entidade)) {
+                em.remove(entidade);
+            } else {
+                em.remove(em.merge(entidade));
+            }
+            transacao.commit();
+        } catch (RuntimeException e) {
+            if (transacao.isActive()) {
+                transacao.rollback();
+            }
+            throw e;
+        }finally {
+            em.close();
         }
-        transacao.commit();
-    } catch (RuntimeException e) {
-        if (transacao.isActive()) {
-            transacao.rollback();
+    }
+
+
+    @Override
+    public void fecharConexao() {
+        EntityManager em = emf.createEntityManager();
+        if (em.isOpen()) {
+            em.close();
+            System.out.println("Conexão Finalizada!");
         }
-        throw e;
     }
-}
-
-
-@Override
-public void fecharConexao() {
-    if (gerenciaEntidade.isOpen()) {
-        gerenciaEntidade.close();
-        System.out.println("Conexão Finalizada!");
-    }
-}
 }

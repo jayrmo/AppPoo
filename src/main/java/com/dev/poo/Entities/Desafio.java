@@ -4,6 +4,8 @@ import com.dev.poo.Aux.Categoria;
 import com.dev.poo.Aux.Nivel;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "desafio")
 public class Desafio {
@@ -25,10 +27,12 @@ public class Desafio {
     @Column(name = "`nivel`")
     private Nivel nivel;
 
-    @ManyToOne
-    @JoinColumn(name = "professor_id", nullable = false)
-    private Usuario professor;
-
+//    @ManyToOne
+//    @JoinColumn(name = "professor_id", nullable = false)
+//    private Usuario professor;
+//
+//    @ManyToMany(mappedBy = "desafios")
+//    private List<Aluno> alunos;
 
 
     public Desafio(String titulo, String descricao, Categoria categoria, Integer pontuacao, Nivel nivel) {
@@ -42,14 +46,22 @@ public class Desafio {
     public Desafio() {
 
     }
-
-    public Usuario getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(Usuario professor) {
-        this.professor = professor;
-    }
+//
+//    public List<Aluno> getAlunos() {
+//        return alunos;
+//    }
+//
+//    public void setAlunos(List<Aluno> alunos) {
+//        this.alunos = alunos;
+//    }
+//
+//    public Usuario getProfessor() {
+//        return professor;
+//    }
+//
+//    public void setProfessor(Usuario professor) {
+//        this.professor = professor;
+//    }
 
 
     public Long getId() {

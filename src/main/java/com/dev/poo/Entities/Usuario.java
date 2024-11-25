@@ -26,6 +26,7 @@ public class Usuario {
     @Column(name = "`tipo`")
     private TipoUsuario tipo;
 
+
     public Long getId() {
         return id;
     }
