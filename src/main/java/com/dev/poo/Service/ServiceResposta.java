@@ -60,11 +60,13 @@ public class ServiceResposta {
         return usuarioLogado;
     }
 
-//    public void avaliarResposta(Integer nota, Respostas resposta, Usuario usuarioLogado) {
-//        Respostas respostaDB = repositoryResposta.buscaUnicaPorCampo("id", resposta.getId());
-//        autenticar.autenticar(usuarioLogado);
-//        respostaDB.setAvaliacao(nota);
-//        repositoryResposta.atualizar(respostaDB);
+    public void avaliarResposta(Integer nota, Respostas resposta, Professor usuarioLogado) {
+        System.out.println(resposta.getAluno());
+        Respostas respostaDB = repositoryResposta.buscaUnicaPorCampo("id", resposta.getId());
+        autenticar.autenticar(usuarioLogado);
+        respostaDB.setAvaliacao(nota);
+        repositoryResposta.atualizar(respostaDB);
+    }
 //
 //        Usuario aluno = repositoryUsuario.buscaUnicaPorCampo("email", resposta.getAluno().getEmail());
 //        ServicePontuarAluno pontuarAluno = new ServicePontuarAluno();

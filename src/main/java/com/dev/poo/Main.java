@@ -150,8 +150,10 @@ public class Main {
         }
 
 
-        System.out.println("Aluno-Desafio" + sr.buscarPorAlunoDesafio(u1, d1).getResposta());
-        System.out.println("Aluno-Desafio" + sr.buscarPorAlunoDesafio(u1, d2).getAluno().getNome());
+//        System.out.println("Aluno-Desafio" + sr.buscarPorAlunoDesafio(u1, d1).getResposta());
+//        System.out.println("Aluno-Desafio" + sr.buscarPorAlunoDesafio(u1, d2).getAluno().getNome());
+
+//        sr.avaliarResposta(5,r1,u5);
 //        for (Respostas r : rr.buscarPorCampo("desafio", r1.getDesafio())){
 //            System.out.println(r.getResposta());
 //        }
