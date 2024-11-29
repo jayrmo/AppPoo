@@ -24,9 +24,9 @@ public class Respostas {
 
     @ManyToOne
     @JoinColumn(name = "aluno_id")
-    private Usuario aluno;
+    private Aluno aluno;
 
-    public Respostas(String resposta, Desafio desafio, Usuario aluno) {
+    public Respostas(String resposta, Desafio desafio, Aluno aluno) {
         this.resposta = resposta;
         this.desafio = desafio;
         this.aluno = aluno;
@@ -52,11 +52,11 @@ public class Respostas {
         this.avaliacao = avaliacao;
     }
 
-    public Usuario getAluno() {
+    public Aluno getAluno() {
         return aluno;
     }
 
-    public void setAluno(Usuario aluno) {
+    public void setAluno(Aluno aluno) {
         this.aluno = aluno;
     }
 

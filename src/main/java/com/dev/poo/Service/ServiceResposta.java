@@ -1,7 +1,7 @@
 package com.dev.poo.Service;
 
-import com.dev.poo.Aux.TipoUsuario;
 import com.dev.poo.Entities.*;
+import com.dev.poo.Repository.RepositoryAluno;
 import com.dev.poo.Repository.RepositoryDesafio;
 import com.dev.poo.Repository.RepositoryResposta;
 import com.dev.poo.Repository.RepositoryUsuario;
@@ -12,13 +12,14 @@ public class ServiceResposta {
     RepositoryResposta repositoryResposta = new RepositoryResposta(Respostas.class);
     RepositoryDesafio repositoryDesafio = new RepositoryDesafio(Desafio.class);
     RepositoryUsuario repositoryUsuario = new RepositoryUsuario(Usuario.class);
+    RepositoryAluno repositoryAluno = new RepositoryAluno(Aluno.class);
     ControleDeAcesso autenticar = new ControleDeAcesso();
 
     public void salvarResposta(Respostas resposta) {
         Desafio desafioDB = repositoryDesafio.buscaUnicaPorCampo("titulo", resposta.getDesafio().getTitulo());
         Usuario userDB = repositoryUsuario.buscaUnicaPorCampo("email", resposta.getAluno().getEmail());
         resposta.setDesafio(desafioDB);
-        resposta.setAluno(userDB);
+        resposta.setAluno((Aluno) userDB);
         repositoryResposta.salvar(resposta);
     }
 
@@ -41,15 +42,13 @@ public class ServiceResposta {
 
     public Respostas buscarPorAlunoDesafio(Aluno aluno, Desafio desafio) {
         Desafio desafioDB = repositoryDesafio.buscaUnicaPorCampo("titulo", desafio.getTitulo());
-        System.out.println(desafioDB.getId());
         Usuario alunoDB = repositoryUsuario.buscaUnicaPorCampo("email", aluno.getEmail());
-        System.out.println(alunoDB.getNome());
         for (Respostas d : buscarPorDesafio(desafioDB)) {
             if (d.getAluno().equals(alunoDB)) {
                 return d;
             }
         }
-
+        System.out.println("Nenhuma resposta de " + aluno.getNome() + " para " + desafio.getTitulo());
         return null;
     }
 
@@ -61,12 +60,34 @@ public class ServiceResposta {
     }
 
     public void avaliarResposta(Integer nota, Respostas resposta, Professor usuarioLogado) {
-        System.out.println(resposta.getAluno());
-        Respostas respostaDB = repositoryResposta.buscaUnicaPorCampo("id", resposta.getId());
         autenticar.autenticar(usuarioLogado);
-        respostaDB.setAvaliacao(nota);
-        repositoryResposta.atualizar(respostaDB);
+        Respostas r = repositoryResposta.buscarPorAlunoEDesafio(resposta.getAluno().getEmail(),
+                resposta.getDesafio().getTitulo());
+        ServicePontuarAluno sp = new ServicePontuarAluno();
+        if (r.getAvaliacao() == null) {
+            r.setAvaliacao(nota);
+            repositoryResposta.atualizar(r);
+            sp.pontuarAluno(nota, r);
+
+        } else {
+            Integer notaAntiga = r.getAvaliacao();
+            r.setAvaliacao(nota);
+            repositoryResposta.atualizar(r);
+            sp.pontuarAluno(notaAntiga, r);
+        }
+
+        System.out.println(r.getAvaliacao());
+
+
     }
+
+//        for (Respostas r : buscarPorAluno(resposta.getAluno())) {
+//            if (r.getDesafio().getTitulo().equals(resposta.getDesafio().getTitulo())) {
+//                break;
+//            }
+//
+//        }
+
 //
 //        Usuario aluno = repositoryUsuario.buscaUnicaPorCampo("email", resposta.getAluno().getEmail());
 //        ServicePontuarAluno pontuarAluno = new ServicePontuarAluno();

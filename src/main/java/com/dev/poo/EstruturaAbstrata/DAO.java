@@ -1,5 +1,6 @@
 package com.dev.poo.EstruturaAbstrata;
 
+import com.dev.poo.Entities.Respostas;
 import jakarta.persistence.*;
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -37,6 +38,7 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
             if (transacao.isActive()) {
                 transacao.rollback();
             }
+            System.out.println("Retorno Null ao salvar");
             return null;
         } catch (RuntimeException e) {
             e.printStackTrace();
@@ -52,6 +54,7 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
     @Override
     public Tipo buscarPorId(ID id) {
 //        EntityManager em = emf.createEntityManager();
+        System.out.println("BuscaPorId");
         return this.em.find(tipoEntidade, id);
     }
 
@@ -61,6 +64,7 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
         try {
             String jpql = "SELECT e FROM " + this.tipoEntidade.getSimpleName() + " e WHERE e." + nomeCampo + " = :valor";
             List<Tipo> entidadesEncontradas = this.em.createQuery(jpql, this.tipoEntidade).setParameter("valor", valorCampo).getResultList();
+            System.out.println("BuscaPorCampo");
             return entidadesEncontradas;
         } catch (NoResultException e) {
             e.printStackTrace();
@@ -71,10 +75,12 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
 
     @Override
     public Tipo buscaUnicaPorCampo(String nomeCampo, Object valorCampo) {
-//        EntityManager em = emf.createEntityManager();
         try {
             String jpql = "SELECT e FROM " + this.tipoEntidade.getSimpleName() + " e WHERE e." + nomeCampo + " = :valor";
-            Tipo entidadeEncontrada = this.em.createQuery(jpql, this.tipoEntidade).setParameter("valor", valorCampo).getSingleResult();
+            Tipo entidadeEncontrada = this.em.createQuery(jpql, this.tipoEntidade)
+                    .setParameter("valor", valorCampo)
+                    .getSingleResult();
+            System.out.println("BuscadoUnicaPorCampo");
             return entidadeEncontrada;
         } catch (NoResultException e) {
             e.printStackTrace();
@@ -83,11 +89,32 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
         }
     }
 
+    public Tipo buscarPorAlunoEDesafio(String emailAluno, String tituloDesafio) {
+        String jpql = "SELECT r FROM Respostas r " +
+                "WHERE r.aluno.email = :email AND r.desafio.titulo = :titulo";
+        try {
+            Tipo entidadeEncontrada = this.em.createQuery(jpql, tipoEntidade)
+                    .setParameter("email", emailAluno)
+                    .setParameter("titulo", tituloDesafio)
+                    .getSingleResult();
+            System.out.println("BuscaPorCamposUnicos");
+            if (entidadeEncontrada != null) {
+            return em.merge(entidadeEncontrada); // Entidade gerenciada retornada
+            }
+        } catch (NoResultException e) {
+            System.out.println("catch buscarPorAlunoEDesafio");
+            return null;
+        }
+
+        return null;
+    }
+
 
     @Override
     public List<Tipo> buscarTodos() {
 //        EntityManager em = emf.createEntityManager();
         String jpql = "SELECT e FROM " + tipoEntidade.getSimpleName() + " e";
+        System.out.println("Buscado Todos!");
         return this.em.createQuery(jpql, tipoEntidade).getResultList();
     }
 
@@ -98,12 +125,14 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
         try {
             transacao.begin();
             this.em.merge(entidade);
-            System.out.println(entidade);
             transacao.commit();
+            fecharConexao();
+            System.out.println("Atualizado: " + entidade);
         } catch (
                 RuntimeException e) {
             if (transacao.isActive()) {
                 transacao.rollback();
+                System.out.println("Feito rooblack em atulizar!");
             }
             throw e;
         }
@@ -121,6 +150,7 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
                 this.em.remove(entidade);
             }
             transacao.commit();
+            System.out.println("Deletado por ID com sucessor!");
         } catch (RuntimeException e) {
             if (transacao.isActive()) {
                 transacao.rollback();
@@ -142,10 +172,12 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
                 this.em.remove(this.em.merge(entidade));
             }
             transacao.commit();
+            System.out.println("Objeto " + entidade + " deletado!");
         } catch (RuntimeException e) {
             if (transacao.isActive()) {
                 transacao.rollback();
             }
+            System.out.println("Erro em deletar!");
             throw e;
         }
     }

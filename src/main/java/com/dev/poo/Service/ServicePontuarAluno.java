@@ -1,14 +1,46 @@
 package com.dev.poo.Service;
 
-import com.dev.poo.Aux.Nivel;
 import com.dev.poo.Entities.Aluno;
-import com.dev.poo.Entities.Usuario;
-import com.dev.poo.Repository.RepositoryUsuario;
+import com.dev.poo.Entities.Respostas;
+import com.dev.poo.Repository.RepositoryAluno;
 
 public class ServicePontuarAluno {
-    RepositoryUsuario repositoryUsuario = new RepositoryUsuario(Usuario.class);
+    RepositoryAluno repositoryAluno = new RepositoryAluno(Aluno.class);
 
-//    public void calcularPonto(Integer nota, Aluno aluno) {
+    public void pontuarAluno(Integer notaAntiga, Respostas resposta) {
+        System.out.println(notaAntiga);
+        System.out.println(resposta.getAvaliacao());
+        Aluno a = repositoryAluno.buscaUnicaPorCampo("email", resposta.getAluno().getEmail());
+        if (a.getPontosAcumulados() == null) {
+            a.setPontosAcumulados(resposta.getAvaliacao());
+            repositoryAluno.atualizar(a);
+            System.out.println("Novos Pontos acumulados");
+
+        } else {
+            if (notaAntiga < resposta.getAvaliacao()) {
+                Integer diferenca = resposta.getAvaliacao() - notaAntiga;
+                a.setPontosAcumulados(a.getPontosAcumulados() + diferenca);
+                repositoryAluno.atualizar(a);
+                System.out.println("Somado " + diferenca + " nos pontos de " + resposta.getAluno().getNome());
+            } else if (notaAntiga > resposta.getAvaliacao()) {
+                Integer diferenca = notaAntiga - resposta.getAvaliacao();
+                a.setPontosAcumulados(a.getPontosAcumulados() - diferenca);
+                repositoryAluno.atualizar(a);
+                System.out.println("Diminuido " + diferenca + " nos pontos de " + resposta.getAluno().getNome());
+            } else {
+                System.out.println("Não houve mudança na pontuação de " + resposta.getAluno().getNome());
+            }
+        }
+    }
+
+    public void zerarPontuacao(Aluno aluno){
+        Aluno a = repositoryAluno.buscaUnicaPorCampo("email", aluno.getEmail());
+        a.setPontosAcumulados(null);
+        repositoryAluno.atualizar(a);
+    }
+
+//    public void
+//    calcularPonto(Integer nota, Aluno aluno) {
 //        System.out.println(aluno.getPontuacao_total());
 //        aluno.setPontuacao_total(nota);
 //        System.out.println(aluno.getPontuacao_total());

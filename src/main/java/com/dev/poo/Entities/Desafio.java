@@ -1,7 +1,7 @@
 package com.dev.poo.Entities;
 
 import com.dev.poo.Aux.Categoria;
-import com.dev.poo.Aux.Nivel;
+import com.dev.poo.Aux.ENivel;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -25,19 +25,19 @@ public class Desafio {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "`nivel`")
-    private Nivel nivel;
+    private ENivel enivel;
 
     @ManyToOne
     @JoinColumn(name = "professor_id", nullable = false)
     private Professor professor;
 
 
-    public Desafio(String titulo, String descricao, Categoria categoria, Integer pontuacao, Nivel nivel) {
+    public Desafio(String titulo, String descricao, Categoria categoria, Integer pontuacao, ENivel nivel) {
         this.titulo = titulo;
         this.descricao = descricao;
         this.categoria = categoria;
         this.pontuacao = pontuacao;
-        this.nivel = nivel;
+        this.enivel = nivel;
     }
 
     public Desafio() {
@@ -88,11 +88,11 @@ public class Desafio {
         this.pontuacao = pontuacao;
     }
 
-    public Nivel getNivel() {
-        return nivel;
+    public ENivel getEnivel() {
+        return enivel;
     }
 
-    public void setNivel(Nivel nivel) {
-        this.nivel = nivel;
+    public void setEnivel(ENivel enivel) {
+        this.enivel = enivel;
     }
 }

@@ -1,6 +1,6 @@
 package com.dev.poo.Aux;
 
-public enum Nivel {
+public enum ENivel {
     CONHECIMENTO(1),
     SINTESE(2),
     COMPREENSAO(3),
@@ -10,7 +10,7 @@ public enum Nivel {
 
     private final Integer valor;
 
-    Nivel(Integer nivel) {
+    ENivel(Integer nivel) {
         this.valor = nivel;
     }
 
