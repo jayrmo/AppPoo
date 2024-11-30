@@ -17,6 +17,7 @@ public class Classificacao {
     private Integer pontuacaoMinima;
 
     @Enumerated(EnumType.STRING)
+    @Column(unique = true)
     private ENivel nivel;
 
     @OneToMany(mappedBy = "classificacao")

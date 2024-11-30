@@ -21,7 +21,39 @@ public class Main {
         RepositoryProfessor rp = new RepositoryProfessor(Professor.class);
         RepositoryDesafio rd = new RepositoryDesafio(Desafio.class);
         RepositoryResposta rr = new RepositoryResposta(Respostas.class);
+        RepositoryClassificacao rc = new RepositoryClassificacao(Classificacao.class);
         ServicePontuarAluno sp = new ServicePontuarAluno();
+        Classificacao cc1 = new Classificacao();
+        Classificacao cc2 = new Classificacao();
+        Classificacao cc3 = new Classificacao();
+        Classificacao cc4 = new Classificacao();
+        Classificacao cc5 = new Classificacao();
+        Classificacao cc6 = new Classificacao();
+        cc1.setNivel(ENivel.CONHECIMENTO);
+        cc1.setPontuacaoMinima(10);
+        cc2.setNivel(ENivel.SINTESE);
+        cc2.setPontuacaoMinima(20);
+        cc3.setNivel(ENivel.COMPREENSAO);
+        cc3.setPontuacaoMinima(30);
+        cc4.setNivel(ENivel.ANALISE);
+        cc4.setPontuacaoMinima(50);
+        cc5.setNivel(ENivel.AVALIACAO);
+        cc5.setPontuacaoMinima(70);
+        cc6.setNivel(ENivel.APLICACAO);
+        cc6.setPontuacaoMinima(90);
+
+        List<Classificacao> niveis = new ArrayList<>();
+        niveis.add(cc1);
+        niveis.add(cc2);
+        niveis.add(cc3);
+        niveis.add(cc4);
+        niveis.add(cc5);
+        niveis.add(cc6);
+
+//        for (Classificacao c : niveis){
+//            rc.salvar(c);
+//        }
+
         Aluno u1 = new Aluno();
         Aluno u2 = new Aluno();
         Professor u3 = new Professor();
@@ -129,9 +161,23 @@ public class Main {
 //            System.out.println(r.getResposta());
 //        }
 //        }
-        sr.avaliarResposta(5,r1,u5);
+//        sr.avaliarResposta(5,r1,u5);
+
+
+
+
+
+
 //            sp.zerarPontuacao(u1);
-//        sr.avaliarResposta(10,r2,u5);
+        sr.avaliarResposta(40,r2,u5);
+        sr.avaliarResposta(63,r3,u5);
+        sr.avaliarResposta(65,r4,u5);
+        for (Classificacao c : rc.buscarTodos()){
+            System.out.println("Nivel: "+c.getNivel());
+            for (Aluno a:c.getAlunos()){
+                System.out.println("→ "+a.getNome());
+            }
+        }
 ////        System.out.println(sr.buscarPorAlunoDesafio(u1, d2));
 
 ////        System.out.println("Aluno-Desafio" + sr.buscarPorAlunoDesafio(u1, d1).getResposta());

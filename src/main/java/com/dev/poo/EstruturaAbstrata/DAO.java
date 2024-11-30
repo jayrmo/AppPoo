@@ -126,7 +126,7 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
             transacao.begin();
             this.em.merge(entidade);
             transacao.commit();
-            fecharConexao();
+//            fecharConexao();
             System.out.println("Atualizado: " + entidade);
         } catch (
                 RuntimeException e) {
