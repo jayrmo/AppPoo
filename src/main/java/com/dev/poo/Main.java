@@ -60,6 +60,7 @@ public class Main {
 //            rc.salvar(c);
 //        }
 
+
         Aluno u1 = new Aluno();
         Aluno u2 = new Aluno();
         Professor u3 = new Professor();
@@ -103,13 +104,14 @@ public class Main {
 //        }
 
 
-////----------------------------- Desafios ---------------------------------------
-//
+//----------------------------- Desafios ---------------------------------------
         ServiceDesafio sv = new ServiceDesafio();
         Desafio d1 = new Desafio("Soma de dois", "Qual o resultado da soma 5+5", Categoria.MATEMATICA, 5, ENivel.CONHECIMENTO);
         Desafio d2 = new Desafio("Multiplicação de dois", "Qual o resultado da multiplicação de 5*5", Categoria.MATEMATICA, 10, ENivel.CONHECIMENTO);
-//        Desafio d3 = new Desafio("Java", "Qual comando para imprimir no console", Categoria.PROGRAMACAO, 5, ENivel.ANALISE);
-//        Desafio d4 = new Desafio("Python", "Qual comando para imprimir no console", Categoria.PROGRAMACAO, 5, ENivel.ANALISE);
+        Desafio d3 = new Desafio("Java", "Qual comando para imprimir no console", Categoria.PROGRAMACAO, 5, ENivel.ANALISE);
+        Desafio d4 = new Desafio("Python", "Qual comando para imprimir no console", Categoria.PROGRAMACAO, 5, ENivel.ANALISE);
+
+
 //-----------------Salvar desafio-------------------
 //        sv.cadastrarDesafio(d1, u5);
 //       sv.cadastrarDesafio(d2, u3);
@@ -120,18 +122,16 @@ public class Main {
 //        }
 
 
-////-----------------Deletar desafio-------------------
-////        rd.deletarPorId(2L);
-////        sv.deletarDesafio(6L, u5);
+//-----------------Deletar desafio-------------------
+//        rd.deletarPorId(2L);
+//        sv.deletarDesafio(6L, u5);
 //
 //        for (Desafio d : sv.buscarPorCampo("categoria", Categoria.PROGRAMACAO)) {
 //            System.out.println("Lista Por campo: " + d.getId() + " = " + d.getTitulo() + " : " + d.getCategoria());
 //        }
-//
-//
-//
 //        System.out.println("Por ID 3: " + rd.buscarPorId(2L).getTitulo() + " : " + rd.buscarPorId(3L).getProfessor().getNome());
-//
+
+
 //-----------------Adicionar Aluno em  desafio-------------------
 //        sv.adicionarAlunoDesafio(u2, d1);
 //        sv.adicionarAlunoDesafio(u4, d1);
@@ -139,8 +139,10 @@ public class Main {
 //        sv.removerAlunoDesafio(u1, d1);
 //        sv.removerAlunoDesafio(u1, d1);
 //        sv.buscarRelacaoAlunoDesafio(u1, d2);
-////----------------------------- Respostas ---------------------------------------
-//
+
+
+
+//----------------------------- Respostas ---------------------------------------
         ServiceResposta sr = new ServiceResposta();
         Respostas r1 = new Respostas("A resposta para a soma é 55", d1, u1);
         Respostas r5 = new Respostas("A resposta para a soma é 52", d1, u1);
@@ -149,26 +151,27 @@ public class Main {
 //        Respostas r3 = new Respostas("O comando é system.out.println()", d3, u4);
 //        Respostas r4 = new Respostas("O comando python é print()", d4, u2);
 //
-////---------------Salvar Respostas---------------
+
+
+//---------------Salvar Respostas---------------
 //        sr.salvarResposta(r5);
 //        sr.salvarResposta(r1);
 //        sr.salvarResposta(r3);
 //        sr.salvarResposta(r4);
-//
+
 //        for(Respostas r : sr.buscarTodasRespostas(u5)){
 //            System.out.println("________ Resposta _________");
 //            System.out.println("Desafio: " + r.getDesafio().getTitulo());
 //            System.out.println("Resposta: " + r.getResposta());
 //            System.out.println("Aluno: " + r.getAluno().getNome());
 //        }
-//
+
 //        for (Respostas r : sr.buscarPorAluno(u1)) {
 //            System.out.println(r.getResposta());
 //            System.out.println(r.getDesafio().getTitulo());
 //            System.out.println(r.getAluno().getEmail());
 //        }
-////
-////
+
 //        for (Respostas r : sr.buscarPorDesafio(d1)) {
 //            System.out.println(sr.buscarPorAlunoDesafio(r.getAluno(), r.getDesafio()));
 //            System.out.println(r.getAluno().getNome());
@@ -190,25 +193,6 @@ public class Main {
 //            }
 //        }
 
-
-////        System.out.println(sr.buscarPorAlunoDesafio(u1, d2));
-
-//        System.out.println("Aluno-Desafio" + sr.buscarPorAlunoDesafio(u1, d1).getResposta());
-//        System.out.println("Aluno-Desafio" + sr.buscarPorAlunoDesafio(u1, d2).getAluno().getNome());
-//
-////        for (Respostas r : rr.buscarPorCampo("desafio", r1.getDesafio())){
-////            System.out.println(r.getResposta());
-////        }
-////        r1.setId(6L);
-//////        sr.atualizarResposta(r1, u3);
-//////        sr.salvarResposta(r1);
-////
-////
-//////        sr.avaliarResposta(8, r1,u3);
-//////        sr.deletarResposta(5L, u3);
-//
-////        repositoryUsuario.fecharConexao();
-////    }
 
 
     }
