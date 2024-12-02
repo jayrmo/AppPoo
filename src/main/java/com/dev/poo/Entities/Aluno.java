@@ -3,6 +3,8 @@ package com.dev.poo.Entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 
 @Entity
 @Table(name = "aluno")
@@ -15,6 +17,16 @@ public class Aluno extends Usuario {
     @JoinColumn(name = "classificacao_id")
     private Classificacao classificacao;
 
+    @ManyToMany(mappedBy = "alunos")
+    private List<Desafio> desafios;
+
+    public List<Desafio> getDesafios() {
+        return desafios;
+    }
+
+    public void setDesafios(List<Desafio> desafios) {
+        this.desafios = desafios;
+    }
 
     public Integer getPontosAcumulados() {
         return pontosAcumulados;

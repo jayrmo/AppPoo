@@ -64,7 +64,7 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
         try {
             String jpql = "SELECT e FROM " + this.tipoEntidade.getSimpleName() + " e WHERE e." + nomeCampo + " = :valor";
             List<Tipo> entidadesEncontradas = this.em.createQuery(jpql, this.tipoEntidade).setParameter("valor", valorCampo).getResultList();
-            System.out.println("BuscaPorCampo");
+//            System.out.println("BuscaPorCampo");
             return entidadesEncontradas;
         } catch (NoResultException e) {
             e.printStackTrace();
@@ -80,7 +80,7 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
             Tipo entidadeEncontrada = this.em.createQuery(jpql, this.tipoEntidade)
                     .setParameter("valor", valorCampo)
                     .getSingleResult();
-            System.out.println("BuscadoUnicaPorCampo");
+//            System.out.println("BuscadoUnicaPorCampo");
             return entidadeEncontrada;
         } catch (NoResultException e) {
             e.printStackTrace();

@@ -12,7 +12,6 @@ public class ServiceResposta {
     RepositoryResposta repositoryResposta = new RepositoryResposta(Respostas.class);
     RepositoryDesafio repositoryDesafio = new RepositoryDesafio(Desafio.class);
     RepositoryUsuario repositoryUsuario = new RepositoryUsuario(Usuario.class);
-    RepositoryAluno repositoryAluno = new RepositoryAluno(Aluno.class);
     ControleDeAcesso autenticar = new ControleDeAcesso();
 
     public void salvarResposta(Respostas resposta) {
@@ -24,7 +23,7 @@ public class ServiceResposta {
     }
 
     public List<Respostas> buscarTodasRespostas(Professor usuarioLogado) {
-        autenticar.autenticar(usuarioLogado);
+        autenticar.autenticarProfessor(usuarioLogado);
         return repositoryResposta.buscarTodos();
     }
 
@@ -54,13 +53,13 @@ public class ServiceResposta {
 
 
     public Professor deletarResposta(Long id, Professor usuarioLogado) {
-        autenticar.autenticar(usuarioLogado);
+        autenticar.autenticarProfessor(usuarioLogado);
         repositoryResposta.deletarPorId(id);
         return usuarioLogado;
     }
 
     public void avaliarResposta(Integer nota, Respostas resposta, Professor usuarioLogado) {
-        autenticar.autenticar(usuarioLogado);
+        autenticar.autenticarProfessor(usuarioLogado);
         Respostas r = repositoryResposta.buscarPorAlunoEDesafio(resposta.getAluno().getEmail(),
                 resposta.getDesafio().getTitulo());
         ServicePontuarAluno sp = new ServicePontuarAluno();
@@ -80,30 +79,5 @@ public class ServiceResposta {
 
 
     }
-
-//        for (Respostas r : buscarPorAluno(resposta.getAluno())) {
-//            if (r.getDesafio().getTitulo().equals(resposta.getDesafio().getTitulo())) {
-//                break;
-//            }
-//
-//        }
-
-//
-//        Usuario aluno = repositoryUsuario.buscaUnicaPorCampo("email", resposta.getAluno().getEmail());
-//        ServicePontuarAluno pontuarAluno = new ServicePontuarAluno();
-//        pontuarAluno.calcularPonto(nota, aluno.);
-//
-////        System.out.println(respostaDB.getAluno().getId());
-////        System.out.println(respostaDB.getResposta());
-//    }
-
-//    public void atualizarResposta(Respostas resposta, Usuario usuarioLogado){
-//        Respostas respostaDB = repositoryResposta.buscaUnicaPorCampo("id", resposta.getId());
-//        autenticar.autenticar(usuarioLogado);
-//        repositoryResposta.salvar(respostaDB);
-//
-//
-//    }
-
 
 }

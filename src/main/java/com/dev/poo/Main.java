@@ -6,6 +6,7 @@ import com.dev.poo.Aux.ENivel;
 import com.dev.poo.Aux.TipoUsuario;
 import com.dev.poo.Entities.*;
 import com.dev.poo.Repository.*;
+import com.dev.poo.Service.ControleDeAcesso;
 import com.dev.poo.Service.ServiceDesafio;
 import com.dev.poo.Service.ServicePontuarAluno;
 import com.dev.poo.Service.ServiceResposta;
@@ -23,6 +24,11 @@ public class Main {
         RepositoryResposta rr = new RepositoryResposta(Respostas.class);
         RepositoryClassificacao rc = new RepositoryClassificacao(Classificacao.class);
         ServicePontuarAluno sp = new ServicePontuarAluno();
+
+        ControleDeAcesso login = new ControleDeAcesso();
+//        System.out.println(login.autenticarUsuario("jayr.jm7@gmail.com", "123").getNome());
+
+
         Classificacao cc1 = new Classificacao();
         Classificacao cc2 = new Classificacao();
         Classificacao cc3 = new Classificacao();
@@ -102,8 +108,8 @@ public class Main {
         ServiceDesafio sv = new ServiceDesafio();
         Desafio d1 = new Desafio("Soma de dois", "Qual o resultado da soma 5+5", Categoria.MATEMATICA, 5, ENivel.CONHECIMENTO);
         Desafio d2 = new Desafio("Multiplicação de dois", "Qual o resultado da multiplicação de 5*5", Categoria.MATEMATICA, 10, ENivel.CONHECIMENTO);
-        Desafio d3 = new Desafio("Java", "Qual comando para imprimir no console", Categoria.PROGRAMACAO, 5, ENivel.ANALISE);
-        Desafio d4 = new Desafio("Python", "Qual comando para imprimir no console", Categoria.PROGRAMACAO, 5, ENivel.ANALISE);
+//        Desafio d3 = new Desafio("Java", "Qual comando para imprimir no console", Categoria.PROGRAMACAO, 5, ENivel.ANALISE);
+//        Desafio d4 = new Desafio("Python", "Qual comando para imprimir no console", Categoria.PROGRAMACAO, 5, ENivel.ANALISE);
 //-----------------Salvar desafio-------------------
 //        sv.cadastrarDesafio(d1, u5);
 //       sv.cadastrarDesafio(d2, u3);
@@ -126,18 +132,26 @@ public class Main {
 //
 //        System.out.println("Por ID 3: " + rd.buscarPorId(2L).getTitulo() + " : " + rd.buscarPorId(3L).getProfessor().getNome());
 //
-//
+//-----------------Adicionar Aluno em  desafio-------------------
+//        sv.adicionarAlunoDesafio(u2, d1);
+//        sv.adicionarAlunoDesafio(u4, d1);
+//        sv.adicionarAlunoDesafio(u1, d1);
+//        sv.removerAlunoDesafio(u1, d1);
+//        sv.removerAlunoDesafio(u1, d1);
+        sv.buscarRelacaoAlunoDesafio(u1, d2);
 ////----------------------------- Respostas ---------------------------------------
 //
         ServiceResposta sr = new ServiceResposta();
         Respostas r1 = new Respostas("A resposta para a soma é 55", d1, u1);
-        Respostas r2 = new Respostas("A resposta para multiplicação é 25", d2, u1);
-        Respostas r3 = new Respostas("O comando é system.out.println()", d3, u4);
-        Respostas r4 = new Respostas("O comando python é print()", d4, u2);
+        Respostas r5 = new Respostas("A resposta para a soma é 52", d1, u1);
+//        Respostas r6 = new Respostas("A resposta para a soma é 51", d1, u4);
+//        Respostas r2 = new Respostas("A resposta para multiplicação é 25", d2, u1);
+//        Respostas r3 = new Respostas("O comando é system.out.println()", d3, u4);
+//        Respostas r4 = new Respostas("O comando python é print()", d4, u2);
 //
 ////---------------Salvar Respostas---------------
+//        sr.salvarResposta(r5);
 //        sr.salvarResposta(r1);
-//        sr.salvarResposta(r2);
 //        sr.salvarResposta(r3);
 //        sr.salvarResposta(r4);
 //
@@ -155,7 +169,7 @@ public class Main {
 //        }
 ////
 ////
-//        for (Respostas r : sr.buscarPorDesafio(r2.getDesafio())) {
+//        for (Respostas r : sr.buscarPorDesafio(d1)) {
 //            System.out.println(sr.buscarPorAlunoDesafio(r.getAluno(), r.getDesafio()));
 //            System.out.println(r.getAluno().getNome());
 //            System.out.println(r.getResposta());
@@ -164,24 +178,23 @@ public class Main {
 //        sr.avaliarResposta(5,r1,u5);
 
 
-
-
-
-
 //            sp.zerarPontuacao(u1);
-        sr.avaliarResposta(40,r2,u5);
-        sr.avaliarResposta(63,r3,u5);
-        sr.avaliarResposta(65,r4,u5);
-        for (Classificacao c : rc.buscarTodos()){
-            System.out.println("Nivel: "+c.getNivel());
-            for (Aluno a:c.getAlunos()){
-                System.out.println("→ "+a.getNome());
-            }
-        }
+//        sr.avaliarResposta(14,r2,u5);
+//        sr.avaliarResposta(85,r1,u5);
+//        sr.avaliarResposta(63,r3,u5);
+//        sr.avaliarResposta(20,r4,u5);
+//        for (Classificacao c : rc.buscarTodos()){
+//            System.out.println("Nivel: "+c.getNivel());
+//            for (Aluno a:c.getAlunos()){
+//                System.out.println("→ "+a.getNome());
+//            }
+//        }
+
+
 ////        System.out.println(sr.buscarPorAlunoDesafio(u1, d2));
 
-////        System.out.println("Aluno-Desafio" + sr.buscarPorAlunoDesafio(u1, d1).getResposta());
-////        System.out.println("Aluno-Desafio" + sr.buscarPorAlunoDesafio(u1, d2).getAluno().getNome());
+//        System.out.println("Aluno-Desafio" + sr.buscarPorAlunoDesafio(u1, d1).getResposta());
+//        System.out.println("Aluno-Desafio" + sr.buscarPorAlunoDesafio(u1, d2).getAluno().getNome());
 //
 ////        for (Respostas r : rr.buscarPorCampo("desafio", r1.getDesafio())){
 ////            System.out.println(r.getResposta());
@@ -196,5 +209,7 @@ public class Main {
 //
 ////        repositoryUsuario.fecharConexao();
 ////    }
+
+
     }
 }

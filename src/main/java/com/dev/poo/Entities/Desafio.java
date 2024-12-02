@@ -31,6 +31,14 @@ public class Desafio {
     @JoinColumn(name = "professor_id", nullable = false)
     private Professor professor;
 
+    @ManyToMany
+    @JoinTable(
+            name = "desafio_aluno",
+            joinColumns = @JoinColumn(name = "desafio_id"),
+            inverseJoinColumns = @JoinColumn(name = "aluno_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"desafio_id", "aluno_id"})
+    )
+    private List<Aluno> alunos;
 
     public Desafio(String titulo, String descricao, Categoria categoria, Integer pontuacao, ENivel nivel) {
         this.titulo = titulo;
@@ -38,6 +46,14 @@ public class Desafio {
         this.categoria = categoria;
         this.pontuacao = pontuacao;
         this.enivel = nivel;
+    }
+
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
     }
 
     public Desafio() {

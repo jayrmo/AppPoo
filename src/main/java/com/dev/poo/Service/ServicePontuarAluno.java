@@ -81,7 +81,7 @@ public class ServicePontuarAluno {
             repositoryAluno.fecharConexao();
             System.out.println("Nivel " + aluno.getClassificacao().getNivel() + " aplicado! para " + aluno.getNome());
             return aluno.getClassificacao();
-        } else if (pontosAcumulados >= 90 && pontosAcumulados < 120) {
+        } else if (pontosAcumulados >= 90) {
             aluno.setClassificacao(rc.buscaUnicaPorCampo("nivel", ENivel.APLICACAO));
             repositoryAluno.atualizar(aluno);
             repositoryAluno.fecharConexao();
