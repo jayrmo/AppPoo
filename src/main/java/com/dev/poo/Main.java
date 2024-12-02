@@ -138,7 +138,7 @@ public class Main {
 //        sv.adicionarAlunoDesafio(u1, d1);
 //        sv.removerAlunoDesafio(u1, d1);
 //        sv.removerAlunoDesafio(u1, d1);
-        sv.buscarRelacaoAlunoDesafio(u1, d2);
+//        sv.buscarRelacaoAlunoDesafio(u1, d2);
 ////----------------------------- Respostas ---------------------------------------
 //
         ServiceResposta sr = new ServiceResposta();
