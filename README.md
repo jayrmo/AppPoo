@@ -10,6 +10,7 @@ um jardim que crescer de acordo seus conhecimentos.
 - JPA
 - Hibernate
 - Mavem
+- MySql
 
  ## Funcionalidades
 - [x] Cadastro de Desafio pelos professores
