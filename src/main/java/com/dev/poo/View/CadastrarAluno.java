@@ -25,10 +25,10 @@ public class CadastrarAluno extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanelTelaProfessor = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabelNome = new javax.swing.JLabel();
+        jLabelEmail = new javax.swing.JLabel();
         jTextFieldnome = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
+        jLabelSenha = new javax.swing.JLabel();
         jPasswordFieldSenha = new javax.swing.JPasswordField();
         jTextFieldEmail = new javax.swing.JTextField();
         jButtonSalvar = new javax.swing.JButton();
@@ -42,15 +42,15 @@ public class CadastrarAluno extends javax.swing.JFrame {
         jPanelTelaProfessor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
 
-        jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel2.setText("Nome:");
+        jLabelNome.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabelNome.setText("Nome:");
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel3.setText("E-mail:");
+        jLabelEmail.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabelEmail.setText("E-mail:");
 
 
-        jLabel7.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel7.setText("Senha:");
+        jLabelSenha.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabelSenha.setText("Senha:");
 
         jPasswordFieldSenha.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPasswordFieldSenha.setName("");
@@ -88,12 +88,12 @@ public class CadastrarAluno extends javax.swing.JFrame {
                                                 .addGap(87, 87, 87)
                                                 .addGroup(jPanelTelaProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(jPanelTelaProfessorLayout.createSequentialGroup()
-                                                                .addComponent(jLabel3)
+                                                                .addComponent(jLabelEmail)
                                                                 .addGap(18, 18, 18)
                                                                 .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                         .addGroup(jPanelTelaProfessorLayout.createSequentialGroup()
                                                                 .addGroup(jPanelTelaProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(jLabel2)
+                                                                        .addComponent(jLabelNome)
                                                                         .addGroup(jPanelTelaProfessorLayout.createSequentialGroup()
                                                                                 .addGap(23, 23, 23)
                                                                         ))
@@ -102,7 +102,7 @@ public class CadastrarAluno extends javax.swing.JFrame {
                                                                         .addComponent(jTextFieldnome, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 ))
                                                         .addGroup(jPanelTelaProfessorLayout.createSequentialGroup()
-                                                                .addComponent(jLabel7)
+                                                                .addComponent(jLabelSenha)
                                                                 .addGap(21, 21, 21)
                                                                 .addGroup(jPanelTelaProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 
@@ -128,15 +128,15 @@ public class CadastrarAluno extends javax.swing.JFrame {
                                 )
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanelTelaProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel2)
+                                        .addComponent(jLabelNome)
                                         .addComponent(jTextFieldnome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanelTelaProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel3)
+                                        .addComponent(jLabelEmail)
                                         .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanelTelaProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel7)
+                                        .addComponent(jLabelSenha)
                                         .addComponent(jPasswordFieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanelTelaProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -247,9 +247,9 @@ public class CadastrarAluno extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonVoltar;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabelNome;
+    private javax.swing.JLabel jLabelEmail;
+    private javax.swing.JLabel jLabelSenha;
     private javax.swing.JLabel jLabelCadastroDeDesafio;
     private javax.swing.JPanel jPanelTelaProfessor;
     private javax.swing.JPasswordField jPasswordFieldSenha;
