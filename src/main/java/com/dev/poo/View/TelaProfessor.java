@@ -216,9 +216,9 @@ public class TelaProfessor extends javax.swing.JFrame {
     }
 
     private void jButtonListardesafiosActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-//        ListaDesafiosP desafios = new ListaDesafiosP();
-//        desafios.setVisible(true);
+        ListaDesafios desafios = new ListaDesafios(this.professor);
+        desafios.setVisible(true);
+        this.dispose();
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {

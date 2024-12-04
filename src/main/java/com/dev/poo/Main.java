@@ -126,9 +126,9 @@ public class Main {
 //        rd.deletarPorId(2L);
 //        sv.deletarDesafio(6L, u5);
 //
-//        for (Desafio d : sv.buscarPorCampo("categoria", Categoria.PROGRAMACAO)) {
-//            System.out.println("Lista Por campo: " + d.getId() + " = " + d.getTitulo() + " : " + d.getCategoria());
-//        }
+        for (Desafio d : sv.buscarPorCampo("categoria", Categoria.PROGRAMACAO)) {
+            System.out.println("Lista Por campo: " + d.getId() + " = " + d.getTitulo() + " : " + d.getCategoria());
+        }
 //        System.out.println("Por ID 3: " + rd.buscarPorId(2L).getTitulo() + " : " + rd.buscarPorId(3L).getProfessor().getNome());
 
 

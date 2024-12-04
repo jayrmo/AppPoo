@@ -5,6 +5,7 @@ import com.dev.poo.Aux.Categoria;
 import com.dev.poo.Aux.ENivel;
 import com.dev.poo.Entities.Desafio;
 import com.dev.poo.Entities.Professor;
+import com.dev.poo.Repository.RepositoryDesafio;
 import com.dev.poo.Service.ServiceDesafio;
 
 import javax.swing.*;
@@ -15,10 +16,18 @@ import java.util.Date;
 public class CadastrarDesafio extends javax.swing.JFrame {
 
     private Professor professor;
+    private Desafio desafio;
 
     public CadastrarDesafio(Professor professor) {
         this.professor = professor;
         initComponents();
+    }
+
+    public CadastrarDesafio(Desafio desafio, Professor professor) {
+        this.desafio = desafio;
+        this.professor = professor;
+        initComponents();
+        preencherDesafio();
     }
 
     @SuppressWarnings("unchecked")
@@ -236,6 +245,16 @@ public class CadastrarDesafio extends javax.swing.JFrame {
         this.dispose();
     }
 
+    private void preencherDesafio() {
+        String pontuacao = String.valueOf(this.desafio.getPontuacao());
+        jTextFieldPontuacao.setText(pontuacao);
+        jTextFieldTitulo.setText(this.desafio.getTitulo());
+        jTextArea1.setText(this.desafio.getDescricao());
+        jTextFieldResposta.setText(this.desafio.getResposta_certa());
+        jComboBoxNivel.setSelectedIndex(this.desafio.getEnivel().getValor());
+        jComboBoxCategoria.setSelectedIndex(this.desafio.getCategoria().ordinal());
+    }
+
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {
         if (jTextFieldTitulo.getText().isEmpty() || jTextFieldPontuacao.getText().isEmpty() ||
                 jTextFieldResposta.getText().isEmpty() || jTextArea1.getText().isEmpty()) {
@@ -245,49 +264,87 @@ public class CadastrarDesafio extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
             setCursor(Cursor.getDefaultCursor());
         } else {
-            Desafio desafio = new Desafio();
-            desafio.setProfessor(this.professor);
-            desafio.setPontuacao(Integer.valueOf(jTextFieldPontuacao.getText()));
-            desafio.setTitulo(jTextFieldTitulo.getText());
-            desafio.setDescricao(jTextArea1.getText());
-            desafio.setResposta_certa(jTextFieldResposta.getText());
-//        ENivel nivel = (ENivel) jComboBoxNivel.getSelectedItem();
-            desafio.setEnivel((ENivel) jComboBoxNivel.getSelectedItem());
-            desafio.setCategoria((Categoria) jComboBoxCategoria.getSelectedItem());
-
             ServiceDesafio sv = new ServiceDesafio();
-            int resposta = JOptionPane.showConfirmDialog(
-                    null,
-                    "Deseja salvar o Desafio",
-                    "Confirmar",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE
-            );
-            if (resposta == JOptionPane.YES_OPTION) {
-                if (sv.cadastrarDesafio(desafio, this.professor) != null) {
-                    TelaProfessor telaProfessor = new TelaProfessor(this.professor);
-                    telaProfessor.setVisible(true);
+            RepositoryDesafio rd = new RepositoryDesafio(Desafio.class);
+            Desafio desafioDB = rd.buscaUnicaPorCampo("titulo", jTextFieldTitulo.getText());
+            if (desafioDB != null) {
+                desafioDB.setProfessor(this.professor);
+                desafioDB.setPontuacao(Integer.valueOf(jTextFieldPontuacao.getText()));
+                desafioDB.setTitulo(jTextFieldTitulo.getText());
+                desafioDB.setDescricao(jTextArea1.getText());
+                desafioDB.setResposta_certa(jTextFieldResposta.getText());
+                desafioDB.setEnivel((ENivel) jComboBoxNivel.getSelectedItem());
+                desafioDB.setCategoria((Categoria) jComboBoxCategoria.getSelectedItem());
+
+                int resposta = JOptionPane.showConfirmDialog(
+                        null,
+                        "Deseja alterar o Desafio",
+                        "Aterar",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE
+                );
+                if (resposta == JOptionPane.YES_OPTION) {
+                    rd.atualizar(desafioDB);
+                    ListaDesafios listaDesafios = new ListaDesafios(this.professor);
+                    listaDesafios.setVisible(true);
                     this.dispose();
                     JOptionPane.showMessageDialog(
                             null,
-                            "Dados salvos com sucesso!",
-                            "Sucesso",
+                            "Desafio Altera com Sucesso!",
+                            "Alterado",
                             JOptionPane.INFORMATION_MESSAGE
                     );
                 } else {
-                    JOptionPane.showMessageDialog(null,
-                            "Erro ao Salvar Desafio!",
-                            "Erro ao Salvar",
-                            JOptionPane.ERROR_MESSAGE);
-                    setCursor(Cursor.getDefaultCursor());
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Operação cancelada. Nenhuma alteração foi salva.",
+                            "Cancelado",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
                 }
             } else {
-                JOptionPane.showMessageDialog(
+                Desafio desafio1 = new Desafio();
+                desafio1.setProfessor(this.professor);
+                desafio1.setPontuacao(Integer.valueOf(jTextFieldPontuacao.getText()));
+                desafio1.setTitulo(jTextFieldTitulo.getText());
+                desafio1.setDescricao(jTextArea1.getText());
+                desafio1.setResposta_certa(jTextFieldResposta.getText());
+                desafio1.setEnivel((ENivel) jComboBoxNivel.getSelectedItem());
+                desafio1.setCategoria((Categoria) jComboBoxCategoria.getSelectedItem());
+                int resposta = JOptionPane.showConfirmDialog(
                         null,
-                        "Operação cancelada. Nenhuma alteração foi salva.",
-                        "Cancelado",
-                        JOptionPane.INFORMATION_MESSAGE
+                        "Deseja salvar o Desafio",
+                        "Confirmar",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE
                 );
+                if (resposta == JOptionPane.YES_OPTION) {
+                    if (sv.cadastrarDesafio(desafio1, this.professor) != null) {
+                        ListaDesafios listaDesafios = new ListaDesafios(this.professor);
+                        listaDesafios.setVisible(true);
+                        this.dispose();
+                        this.dispose();
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Dados salvos com sucesso!",
+                                "Sucesso",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                    } else {
+                        JOptionPane.showMessageDialog(null,
+                                "Erro ao Salvar Desafio!",
+                                "Erro ao Salvar",
+                                JOptionPane.ERROR_MESSAGE);
+                        setCursor(Cursor.getDefaultCursor());
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Operação cancelada. Nenhuma alteração foi salva.",
+                            "Cancelado",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                }
             }
         }
 

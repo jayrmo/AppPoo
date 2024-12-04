@@ -16,7 +16,7 @@ public interface OperacoesCRUD<Tipo, ID> {
 
     void atualizar(Tipo entidade);
 
-    void deletarPorId(ID id);
+    Tipo deletarPorId(ID id);
 
     void deletar(Tipo entidade);
 

@@ -99,7 +99,7 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
                     .getSingleResult();
             System.out.println("BuscaPorCamposUnicos");
             if (entidadeEncontrada != null) {
-            return em.merge(entidadeEncontrada); // Entidade gerenciada retornada
+                return em.merge(entidadeEncontrada); // Entidade gerenciada retornada
             }
         } catch (NoResultException e) {
             System.out.println("catch buscarPorAlunoEDesafio");
@@ -140,7 +140,7 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
     }
 
     @Override
-    public void deletarPorId(ID id) {
+    public Tipo deletarPorId(ID id) {
 //        EntityManager em = emf.createEntityManager();
         EntityTransaction transacao = this.em.getTransaction();
         try {
@@ -150,13 +150,17 @@ public class DAO<Tipo, ID> implements OperacoesCRUD<Tipo, ID> {
                 this.em.remove(entidade);
             }
             transacao.commit();
-            System.out.println("Deletado por ID com sucessor!");
+            System.out.println("Deletado por ID com sucesso!");
+            return entidade;
         } catch (RuntimeException e) {
             if (transacao.isActive()) {
                 transacao.rollback();
+                return null;
             }
-            System.err.println("Id não encontrado para deletar!");
-            throw e;
+            e.printStackTrace();
+            return null;
+//            System.err.println("Id não encontrado para deletar!");
+//            throw e;
         }
     }
 
