@@ -210,9 +210,9 @@ public class TelaProfessor extends javax.swing.JFrame {
     }
 
     private void jButtonCadastrarAlunoActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-//        CadastrarAluno cadastrarAluno = new CadastrarAluno();
-//        cadastrarAluno.setVisible(true);
+        CadastrarAluno cadastrarAluno = new CadastrarAluno(this.professor);
+        cadastrarAluno.setVisible(true);
+        this.dispose();
     }
 
     private void jButtonListardesafiosActionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,9 +222,9 @@ public class TelaProfessor extends javax.swing.JFrame {
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-//        ListaAlunos alunos = new ListaAlunos();
-//        alunos.setVisible(true);
+        ListaAlunos alunos = new ListaAlunos(this.professor);
+        alunos.setVisible(true);
+        this.dispose();
     }
 
     private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {
