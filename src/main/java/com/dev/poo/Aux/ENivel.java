@@ -11,10 +11,21 @@ public enum ENivel {
     private final Integer valor;
 
     ENivel(Integer nivel) {
+
         this.valor = nivel;
     }
 
     public Integer getValor() {
+
         return valor;
+    }
+
+    public static ENivel encontrarPorValor(int valor) {
+        for (ENivel nivel : ENivel.values()) {
+            if (nivel.getValor() == valor) {
+                return nivel;
+            }
+        }
+        throw new IllegalArgumentException("Nível não encontrado para o valor: " + valor);
     }
 }
