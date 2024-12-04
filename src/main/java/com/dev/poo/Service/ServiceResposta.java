@@ -67,7 +67,11 @@ public class ServiceResposta {
             r.setAvaliacao(nota);
             repositoryResposta.atualizar(r);
             sp.pontuarAluno(nota, r);
-
+        } else if (r.getAvaliacao() < 0) {
+            r.setAvaliacao(0);
+            repositoryResposta.atualizar(r);
+            System.out.println("é menor");
+            return;
         } else {
             Integer notaAntiga = r.getAvaliacao();
             r.setAvaliacao(nota);

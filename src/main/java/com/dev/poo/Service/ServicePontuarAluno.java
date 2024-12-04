@@ -15,13 +15,14 @@ public class ServicePontuarAluno {
         System.out.println(notaAntiga);
         System.out.println(resposta.getAvaliacao());
         Aluno a = repositoryAluno.buscaUnicaPorCampo("email", resposta.getAluno().getEmail());
-        if (a.getPontosAcumulados() == null) {
+        if (a.getPontosAcumulados() == null || a.getPontosAcumulados() < 0) {
             a.setPontosAcumulados(resposta.getAvaliacao());
             repositoryAluno.atualizar(a);
             calcularClassificacao(a);
             System.out.println("Novos Pontos acumulados");
 
         } else {
+
             if (notaAntiga < resposta.getAvaliacao()) {
                 Integer diferenca = resposta.getAvaliacao() - notaAntiga;
                 a.setPontosAcumulados(a.getPontosAcumulados() + diferenca);

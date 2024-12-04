@@ -1,12 +1,9 @@
 package com.dev.poo.View;
 
 import com.dev.poo.Aux.ENivel;
-import com.dev.poo.Entities.Aluno;
-import com.dev.poo.Entities.Classificacao;
-import com.dev.poo.Entities.Usuario;
-import com.dev.poo.Repository.RepositoryAluno;
-import com.dev.poo.Repository.RepositoryClassificacao;
-import com.dev.poo.Repository.RepositoryUsuario;
+import com.dev.poo.Entities.*;
+import com.dev.poo.Repository.*;
+import com.dev.poo.Service.ServiceResposta;
 
 public class TelaAluno extends javax.swing.JFrame {
 
@@ -224,10 +221,22 @@ public class TelaAluno extends javax.swing.JFrame {
     }
 
     private void jButtonVisualizarDesafioActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-//        ListaDesafiosA listaDesafios = new ListaDesafiosA();
+//        ListaDesafios listaDesafios = new ListaDesafios();
 //        listaDesafios.setVisible(true);
 //        this.dispose();
+        Desafio desafio;
+        Aluno aluno;
+        Professor professor;
+        RepositoryDesafio rd = new RepositoryDesafio(Desafio.class);
+        RepositoryAluno ra = new RepositoryAluno(Aluno.class);
+        RepositoryProfessor rp = new RepositoryProfessor(Professor.class);
+        desafio = rd.buscaUnicaPorCampo("id", 1L);
+        aluno = ra.buscaUnicaPorCampo("email", this.getAluno().getEmail());
+        professor = rp.buscaUnicaPorCampo("email", "sormany.ads@gmail.com");
+        ServiceResposta sr = new ServiceResposta();
+        Respostas r1 = new Respostas("A resposta para a soma é 55", desafio, aluno);
+        sr.avaliarResposta(22,r1,professor);
+
     }
 
     private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {
