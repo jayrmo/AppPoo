@@ -12,10 +12,11 @@ public class ServiceDesafio {
     ControleDeAcesso autenticar = new ControleDeAcesso();
 
 
-    public void cadastrarDesafio(Desafio desafio, Professor usuarioLogado) {
+    public Desafio cadastrarDesafio(Desafio desafio, Professor usuarioLogado) {
         Professor userDB = autenticar.autenticarProfessor(usuarioLogado);
         desafio.setProfessor(userDB);
         repositoryDesafio.salvar(desafio);
+        return desafio;
     }
 
     public void adicionarAlunoDesafio(Aluno aluno, Desafio desafio) {

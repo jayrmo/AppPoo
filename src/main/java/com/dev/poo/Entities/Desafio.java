@@ -4,6 +4,7 @@ import com.dev.poo.Aux.Categoria;
 import com.dev.poo.Aux.ENivel;
 import jakarta.persistence.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -14,6 +15,8 @@ public class Desafio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+
     @Column(name = "titulo", unique = true)
     private String titulo;
 
@@ -22,6 +25,8 @@ public class Desafio {
     private Categoria categoria;
 
     private Integer pontuacao;
+
+    private String resposta_certa;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "`nivel`")
@@ -40,12 +45,22 @@ public class Desafio {
     )
     private List<Aluno> alunos;
 
-    public Desafio(String titulo, String descricao, Categoria categoria, Integer pontuacao, ENivel nivel) {
+    public Desafio(String titulo, String descricao, String resposta, Categoria categoria, Integer pontuacao, ENivel nivel) {
         this.titulo = titulo;
         this.descricao = descricao;
+        this.resposta_certa = resposta;
         this.categoria = categoria;
         this.pontuacao = pontuacao;
         this.enivel = nivel;
+    }
+
+
+    public String getResposta_certa() {
+        return resposta_certa;
+    }
+
+    public void setResposta_certa(String resposta_certa) {
+        this.resposta_certa = resposta_certa;
     }
 
     public List<Aluno> getAlunos() {

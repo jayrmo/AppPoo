@@ -51,6 +51,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jTextFieldEmail.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                    setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     jButton1.doClick();
                 }
             }
@@ -64,6 +65,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                    setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     jButton1.doClick();
                 }
             }
@@ -92,6 +94,7 @@ public class TelaLogin extends javax.swing.JFrame {
         this.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                    setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     jButton1.doClick();
                 }
             }

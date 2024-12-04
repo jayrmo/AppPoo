@@ -106,10 +106,10 @@ public class Main {
 
 //----------------------------- Desafios ---------------------------------------
         ServiceDesafio sv = new ServiceDesafio();
-        Desafio d1 = new Desafio("Soma de dois", "Qual o resultado da soma 5+5", Categoria.MATEMATICA, 5, ENivel.CONHECIMENTO);
-        Desafio d2 = new Desafio("Multiplicação de dois", "Qual o resultado da multiplicação de 5*5", Categoria.MATEMATICA, 10, ENivel.CONHECIMENTO);
-        Desafio d3 = new Desafio("Java", "Qual comando para imprimir no console", Categoria.PROGRAMACAO, 5, ENivel.ANALISE);
-        Desafio d4 = new Desafio("Python", "Qual comando para imprimir no console", Categoria.PROGRAMACAO, 5, ENivel.ANALISE);
+//        Desafio d1 = new Desafio("Soma de dois", "Qual o resultado da soma 5+5", Categoria.MATEMATICA, 5, ENivel.CONHECIMENTO);
+//        Desafio d2 = new Desafio("Multiplicação de dois", "Qual o resultado da multiplicação de 5*5", Categoria.MATEMATICA, 10, ENivel.CONHECIMENTO);
+//        Desafio d3 = new Desafio("Java", "Qual comando para imprimir no console", Categoria.PROGRAMACAO, 5, ENivel.ANALISE);
+//        Desafio d4 = new Desafio("Python", "Qual comando para imprimir no console", Categoria.PROGRAMACAO, 5, ENivel.ANALISE);
 
 
 //-----------------Salvar desafio-------------------
@@ -144,8 +144,8 @@ public class Main {
 
 //----------------------------- Respostas ---------------------------------------
         ServiceResposta sr = new ServiceResposta();
-        Respostas r1 = new Respostas("A resposta para a soma é 55", d1, u1);
-        Respostas r5 = new Respostas("A resposta para a soma é 52", d1, u1);
+//        Respostas r1 = new Respostas("A resposta para a soma é 55", d1, u1);
+//        Respostas r5 = new Respostas("A resposta para a soma é 52", d1, u1);
 //        Respostas r6 = new Respostas("A resposta para a soma é 51", d1, u4);
 //        Respostas r2 = new Respostas("A resposta para multiplicação é 25", d2, u1);
 //        Respostas r3 = new Respostas("O comando é system.out.println()", d3, u4);
