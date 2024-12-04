@@ -218,9 +218,9 @@ public class TelaAluno extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void jButtonProgressoActionPerformed(java.awt.event.ActionEvent evt) {
-//        TelaJardim progresso = new TelaJardim(); // Abre a nova tela
-//        progresso.setVisible(true);
-        //this.dispose(); // Fecha a tela atual, se necessário
+        TelaJardim progresso = new TelaJardim(this.aluno);
+        progresso.setVisible(true);
+        this.dispose();
     }
 
     private void jButtonVisualizarDesafioActionPerformed(java.awt.event.ActionEvent evt) {
