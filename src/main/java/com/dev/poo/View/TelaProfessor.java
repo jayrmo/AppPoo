@@ -6,34 +6,36 @@ package com.dev.poo.View;
 
 import com.dev.poo.Entities.Professor;
 import com.dev.poo.Entities.Usuario;
+import com.dev.poo.Repository.RepositoryProfessor;
+import com.dev.poo.Repository.RepositoryUsuario;
 
 /**
  * @author dimit
  */
 public class TelaProfessor extends javax.swing.JFrame {
 
-    private Usuario professor;
+    private Professor professor;
     private String nomeProfessor;
 
     public TelaProfessor(Usuario professor) {
-        this.professor = professor;
+        setProfessor(professor);
         this.nomeProfessor = professor.getNome().split(" ")[0].substring(0, 1).toUpperCase() +
                 professor.getNome().split(" ")[0].substring(1).toLowerCase();
         initComponents();
     }
 
 
-    public Usuario getProfessor() {
+    public Professor getProfessor() {
         return professor;
     }
 
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
+    public void setProfessor(Usuario professor) {
+        RepositoryProfessor rp = new RepositoryProfessor(Professor.class);
+        this.professor = rp.buscarPorId(professor.getId());
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         jPanelTelaProfessor = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -44,22 +46,24 @@ public class TelaProfessor extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jButtonListardesafios = new javax.swing.JButton();
         jButtonCadastrarAluno = new javax.swing.JButton();
+        jButtonSair = new javax.swing.JButton();
+        jButtonAtualizar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Usuário: ");
+        jLabel1.setText("Nome:");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText(this.professor.getNome());
+        jLabel2.setText(getProfessor().getNome());
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setText("Email: ");
+        jLabel4.setText("Email:");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setText(this.professor.getEmail());
+        jLabel5.setText(getProfessor().getEmail());
 
         jButton1.setText("Listar Alunos");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -91,34 +95,55 @@ public class TelaProfessor extends javax.swing.JFrame {
             }
         });
 
+        jButtonSair.setText("Sair");
+        jButtonSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSairActionPerformed(evt);
+            }
+        });
+
+        jButtonAtualizar.setText("Atualizar");
+        jButtonAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAtualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelTelaProfessorLayout = new javax.swing.GroupLayout(jPanelTelaProfessor);
         jPanelTelaProfessor.setLayout(jPanelTelaProfessorLayout);
         jPanelTelaProfessorLayout.setHorizontalGroup(
                 jPanelTelaProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanelTelaProfessorLayout.createSequentialGroup()
-                                .addGap(71, 71, 71)
                                 .addGroup(jPanelTelaProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanelTelaProfessorLayout.createSequentialGroup()
-                                                .addGap(60, 60, 60)
+                                                .addGap(71, 71, 71)
                                                 .addGroup(jPanelTelaProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(jPanelTelaProfessorLayout.createSequentialGroup()
-                                                                .addComponent(jLabel1)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addGap(60, 60, 60)
+                                                                .addGroup(jPanelTelaProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addGroup(jPanelTelaProfessorLayout.createSequentialGroup()
+                                                                                .addComponent(jLabel1)
+                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                        .addGroup(jPanelTelaProfessorLayout.createSequentialGroup()
+                                                                                .addComponent(jLabel4)
+                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                                         .addGroup(jPanelTelaProfessorLayout.createSequentialGroup()
-                                                                .addComponent(jLabel4)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                                .addGroup(jPanelTelaProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                        .addComponent(jButtonCadastrarDesafio, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                                                                        .addComponent(jButtonListardesafios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                                .addGap(34, 34, 34)
+                                                                .addGroup(jPanelTelaProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(jButtonCadastrarAluno, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))))
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(jPanelTelaProfessorLayout.createSequentialGroup()
-                                                .addGroup(jPanelTelaProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(jButtonListardesafios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(jButtonCadastrarDesafio, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
-                                                .addGap(103, 103, 103)
-                                                .addGroup(jPanelTelaProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(jButtonCadastrarAluno, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                                                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addContainerGap()
+                                                .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(10, 10, 10)
+                                                .addComponent(jButtonAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanelTelaProfessorLayout.setVerticalGroup(
@@ -145,7 +170,11 @@ public class TelaProfessor extends javax.swing.JFrame {
                                 .addGroup(jPanelTelaProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jButtonCadastrarDesafio, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jButtonCadastrarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(47, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                                .addGroup(jPanelTelaProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jButtonAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap())
         );
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -157,40 +186,67 @@ public class TelaProfessor extends javax.swing.JFrame {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jPanelTelaProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(350, 350, 350)
+                                .addGap(345, 345, 345)
                                 .addComponent(jLabel3)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(53, 53, 53)
+                                .addGap(23, 23, 23)
                                 .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanelTelaProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>
 
-    private void jButtonCadastrarDesafioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarDesafioActionPerformed
+    private void jButtonCadastrarDesafioActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+//        CadastrarDesafio desafio = new CadastrarDesafio(); // Abre a nova tela
+//        desafio.setVisible(true);
     }
 
-    private void jButtonCadastrarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarAlunoActionPerformed
+    private void jButtonCadastrarAlunoActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+//        CadastrarAluno cadastrarAluno = new CadastrarAluno();
+//        cadastrarAluno.setVisible(true);
     }
 
-    private void jButtonListardesafiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListardesafiosActionPerformed
+    private void jButtonListardesafiosActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+//        ListaDesafiosP desafios = new ListaDesafiosP();
+//        desafios.setVisible(true);
     }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
 //        ListaAlunos alunos = new ListaAlunos();
 //        alunos.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
 
+    private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {
+        RepositoryUsuario ru = new RepositoryUsuario(Usuario.class);
+        Usuario user = ru.buscaUnicaPorCampo("email", this.professor.getEmail());
+        TelaProfessor TProfessor = new TelaProfessor(user);
+        this.dispose();
+        TProfessor.setVisible(true);
+    }
+
+    private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {
+        TelaLogin login = new TelaLogin();
+        login.setVisible(true);
+        this.dispose();
+    }
 
     public static void main(String args[]) {
-
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -207,22 +263,20 @@ public class TelaProfessor extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelaProfessor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-//                new TelaProfessor(professor).setVisible(true);
+//                new TelaProfessor().setVisible(true);
             }
         });
     }
 
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonAtualizar;
     private javax.swing.JButton jButtonCadastrarAluno;
     private javax.swing.JButton jButtonCadastrarDesafio;
     private javax.swing.JButton jButtonListardesafios;
+    private javax.swing.JButton jButtonSair;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -230,5 +284,6 @@ public class TelaProfessor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanelTelaProfessor;
-    // End of variables declaration//GEN-END:variables
+
+
 }
