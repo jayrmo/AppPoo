@@ -235,7 +235,7 @@ public class TelaAluno extends javax.swing.JFrame {
         professor = rp.buscaUnicaPorCampo("email", "sormany.ads@gmail.com");
         ServiceResposta sr = new ServiceResposta();
         Respostas r1 = new Respostas("A resposta para a soma é 55", desafio, aluno);
-        sr.avaliarResposta(22,r1,professor);
+        sr.avaliarResposta(150,r1,professor);
 
     }
 
